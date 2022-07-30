@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MaterialApp(
-    title: 'Navigation Basics',
+    title: 'Indoor Navigation',
     home: FirstRoute(),
   ));
 }
@@ -35,7 +35,11 @@ class FirstRoute extends StatelessWidget {
                   Icons.mic,
                   size: 170,
                   color: Colors.white,
-                )
+                ),
+                Text(
+                  'Tap Anywhere!!',
+                  style: TextStyle(color: Colors.white70),
+                ),
               ],
             ),
           ),
@@ -53,7 +57,7 @@ class SecondRoute extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: MaterialButton(
-          color: Colors.brown,
+          color: Colors.orange.shade600,
           height: double.infinity,
           minWidth: 1000.0,
           onPressed: () {
@@ -69,6 +73,10 @@ class SecondRoute extends StatelessWidget {
                   Icons.graphic_eq,
                   size: 170,
                   color: Colors.white,
+                ),
+                Text(
+                  'Listening',
+                  style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
