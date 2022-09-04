@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:magoo101/widgets.dart';
 
 void main() => runApp(new MyApp());
 
@@ -13,116 +15,114 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: Center(child: MyHomePage()),
+        body: Center(child: DiscoveryPage()),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class DiscoveryPage extends StatefulWidget {
+  /// If true, discovery starts on page start, otherwise user must press action button.
+  final bool start;
+
+  const DiscoveryPage({this.start = true});
+
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _DiscoveryPage createState() => new _DiscoveryPage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  var _textController = new TextEditingController();
+class _DiscoveryPage extends State<DiscoveryPage> {
+  StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
+  List<BluetoothDiscoveryResult> results =
+      List<BluetoothDiscoveryResult>.empty(growable: true);
+  bool isDiscovering = false;
+
+  _DiscoveryPage();
+
+  @override
+  void initState() {
+    super.initState();
+    isDiscovering = widget.start;
+    if (isDiscovering) {
+      _startDiscovery();
+    }
+  }
+
+  void _restartDiscovery() {
+    setState(() {
+      results.clear();
+      isDiscovering = true;
+    });
+
+    _startDiscovery();
+  }
+
+  void _startDiscovery() {
+    _streamSubscription =
+        FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
+      setState(() {
+        final existingIndex = results.indexWhere(
+            (element) => element.device.address == r.device.address);
+        if (existingIndex >= 0)
+          results[existingIndex] = r;
+        else
+          results.add(r);
+      });
+    });
+
+    _streamSubscription!.onDone(() {
+      setState(() {
+        isDiscovering = false;
+        // sleep(Duration(milliseconds: 50));
+      });
+      _restartDiscovery();
+    });
+  }
+
+  // @TODO . One day there should be `_pairDevice` on long tap on something... ;)
+
+  @override
+  void dispose() {
+    // Avoid memory leak (`setState` after dispose) and cancel discovery
+    _streamSubscription?.cancel();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Center(
-        child: MaterialButton(
-          color: Colors.brown.shade500,
-          height: double.infinity,
-          minWidth: 1000.0,
-          onPressed: () {
-            Future.delayed(Duration(milliseconds: 300), () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NextPage(value: _textController.text),
-                  ));
-            });
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.mic,
-                size: 170,
-                color: Colors.white,
-              ),
-              Text(
-                'Tap Anywhere!!',
-                style: TextStyle(color: Colors.white70),
-              ),
-              new ListTile(
-                title: new TextField(
-                  controller: _textController,
-                ),
-              ),
-            ],
-          ),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: isDiscovering
+            ? Text('Discovering devices')
+            : Text('Discovered devices'),
+        actions: <Widget>[
+          isDiscovering
+              ? FittedBox(
+                  child: Container(
+                    margin: new EdgeInsets.all(16.0),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  ),
+                )
+              : IconButton(
+                  icon: Icon(Icons.replay),
+                  onPressed: _restartDiscovery,
+                )
+        ],
       ),
-    );
-  }
-}
-
-class NextPage extends StatefulWidget {
-  String value;
-  NextPage({Key? key, required this.value}) : super(key: key);
-
-  @override
-  _NextPageState createState() => new _NextPageState();
-}
-
-class _NextPageState extends State<NextPage> {
-  final FlutterTts flutterTts = FlutterTts();
-  final TextEditingController textEditingController = TextEditingController();
-
-  speak() async {
-    await flutterTts.setLanguage("en-US");
-    await flutterTts.setLanguage("th-TH");
-    await flutterTts.setPitch(1);
-    await flutterTts.speak("${widget.value}");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      //child: Padding(
-      //padding: const EdgeInsets.all(32),
-      child: Center(
-        //mainAxisSize: MainAxisSize.min,
-        //children: <Widget>[
-        // TextFormField(
-        //  controller: textEditingController,
-        //),
-        child: MaterialButton(
-          minWidth: 1200,
-          height: double.infinity,
-          onPressed: () => speak(),
-          color: Colors.brown,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              Icon(
-                Icons.graphic_eq,
-                size: 170,
-                color: Colors.white,
-              ),
-              Text(
-                'Tap Anywhere!!',
-                style: TextStyle(color: Colors.white70),
-              ),
-            ],
-          ),
-        ),
-        //],
+      body: ListView.builder(
+        itemCount: results.length,
+        itemBuilder: (BuildContext context, index) {
+          BluetoothDiscoveryResult result = results[index];
+          final device = result.device;
+          return BluetoothDeviceListEntry(
+            device: device,
+            rssi: result.rssi,
+          );
+        },
       ),
-      //),
     );
   }
 }
