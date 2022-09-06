@@ -1,28 +1,22 @@
-[
-  {
-    "name": "Wilson",
-    "image": "assets/images/Wilson_Portrait.png",
-    "description": "Grows a magnificent beard.",
-    "status": {
-      "health": 150,
-      "hunger": 150,
-      "sanity": 200
+{
+  "devicesPosition": {
+    "B0:BE:83:69:62:1A" : {
+      "name": "My Macbook",
+      "positionx": 0,
+      "positiony": 0,
+      "positionz": 0
     },
-    "gallery": [
-      "Wilson01.jpg",
-      "Wilson02.jpg",
-      "Wilson03.jpg"
-    ]
-  },
-  {
-    "name" : "Willow",
-    "image" : "assets/images/Willow_Portrait.png",
-    "description": "Things are so much prettier when they burn.",
-    "status" : {
-      "health" : 150,
-      "hunger" : 150,
-      "sanity" : 120
+    "74:4c:A1:8C:CC:DA": {
+      "name": "Windows",
+      "positionx": 1,
+      "positiony": 1,
+      "positionz": 1
     },
-    "gallery": ["Willow01.jpg","Willow02.jpg","Willow03.jpg"]
+    "00:C3:F4:84:7C:A6": {
+      "name": "Windows",
+      "positionx": 1,
+      "positiony": 1,
+      "positionz": 1
+    }
   }
-]
+}

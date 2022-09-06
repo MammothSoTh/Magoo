@@ -14,7 +14,9 @@ class BluetoothDeviceListEntry extends ListTile {
   }) : super(
           //
           title: Text(device.name ?? ""),
-          subtitle: Text(device.address.toString() + position(rssi).toString()),
+          subtitle: Text(device.address.toString() +
+              "\n" +
+              position(rssi.toString(), device.address.toString()).toString()),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -24,8 +26,8 @@ class BluetoothDeviceListEntry extends ListTile {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text(rssi.toString() + "dBm"),
-                          Text(distance(rssi)),
+                          //Text(rssi.toString() + "dBm"),
+                          //Text(distance(rssi)),
                           //Text(position(rssi))
                         ],
                       ),

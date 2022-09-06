@@ -1,47 +1,52 @@
-class CharacterData {
-  final String name;
-  final String image;
-  final String description;
-  final CharacterStatus status;
-  final List<String> gallery;
+// To parse this JSON data, do
+//
+//     final bTdata = bTdataFromJson(jsonString);
 
-  CharacterData({
-    required this.name,
-    required this.image,
-    required this.description,
-    required this.status,
-    required this.gallery,
+import 'dart:convert';
+
+BTdata bTdataFromJson(String str) => BTdata.fromJson(json.decode(str));
+
+String bTdataToJson(BTdata data) => json.encode(data.toJson());
+
+class BTdata {
+  BTdata({
+    required this.devicesPosition,
   });
 
-  // อ่านค่า json แล้วแปลงให้อยู่ในรูป ViewModel
-  factory CharacterData.fromJson(Map<String, dynamic> json) {
-    CharacterStatus status = CharacterStatus.fromJson(json['status']);
-    var gallery = json['gallery'];
-    List<String> galleryList = new List<String>.from(gallery);
+  Map<String, DevicesPosition> devicesPosition;
 
-    return CharacterData(
-      name: json['name'] as String,
-      image: json['image'] as String,
-      description: json['description'] as String,
-      status: status,
-      gallery: galleryList,
-    );
-  }
+  factory BTdata.fromJson(Map<String, dynamic> json) => BTdata(
+        devicesPosition: Map.from(json["devicesPosition"]).map((k, v) =>
+            MapEntry<String, DevicesPosition>(k, DevicesPosition.fromJson(v))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "devicesPosition": Map.from(devicesPosition)
+            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+      };
 }
 
-class CharacterStatus {
-  final int health;
-  final int hunger;
-  final int sanity;
+class DevicesPosition {
+  DevicesPosition(this.positionx, this.positiony, this.positionz,
+      [this.name = "Unknow"]);
 
-  CharacterStatus(
-      {required this.health, required this.hunger, required this.sanity});
+  String name;
+  int positionx;
+  int positiony;
+  int positionz;
 
-  factory CharacterStatus.fromJson(Map<String, dynamic> json) {
-    return CharacterStatus(
-      health: json['health'] as int,
-      hunger: json['hunger'] as int,
-      sanity: json['sanity'] as int,
-    );
-  }
+  factory DevicesPosition.fromJson(Map<String, dynamic> json) =>
+      DevicesPosition(
+        json["name"],
+        json["positionx"],
+        json["positiony"],
+        json["positionz"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "positionx": positionx,
+        "positiony": positiony,
+        "positionz": positionz,
+      };
 }

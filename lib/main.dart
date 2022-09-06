@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:magoo101/widgets.dart';
 
 void main() => runApp(new MyApp());
 
@@ -92,37 +91,64 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: isDiscovering
-            ? Text('Discovering devices')
-            : Text('Discovered devices'),
-        actions: <Widget>[
-          isDiscovering
-              ? FittedBox(
-                  child: Container(
-                    margin: new EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  ),
-                )
-              : IconButton(
-                  icon: Icon(Icons.replay),
-                  onPressed: _restartDiscovery,
-                )
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: results.length,
-        itemBuilder: (BuildContext context, index) {
-          BluetoothDiscoveryResult result = results[index];
-          final device = result.device;
-          return BluetoothDeviceListEntry(
-            device: device,
-            rssi: result.rssi,
-          );
-        },
+      body: Center(
+        child: Container(
+          color: Colors.brown.shade500,
+          height: double.infinity,
+          width: 1000.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.mic,
+                size: 170,
+                color: Colors.white,
+              ),
+              Text(
+                style: TextStyle(color: Colors.white70),
+                "Tap Anywhere!!" + "\n" +
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       title: isDiscovering
+  //           ? Text('Discovering devices')
+  //           : Text('Discovered devices'),
+  //       actions: <Widget>[
+  //         isDiscovering
+  //             ? FittedBox(
+  //                 child: Container(
+  //                   margin: new EdgeInsets.all(16.0),
+  //                   child: CircularProgressIndicator(
+  //                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+  //                   ),
+  //                 ),
+  //               )
+  //             : IconButton(
+  //                 icon: Icon(Icons.replay),
+  //                 onPressed: _restartDiscovery,
+  //               )
+  //       ],
+  //     ),
+  //     body: ListView.builder(
+  //       itemCount: results.length,
+  //       itemBuilder: (BuildContext context, index) {
+  //         BluetoothDiscoveryResult result = results[index];
+  //         final device = result.device;
+  //         return BluetoothDeviceListEntry(
+  //           device: device,
+  //           rssi: result.rssi,
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 }

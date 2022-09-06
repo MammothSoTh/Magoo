@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/services.dart';
 import 'package:ml_linalg/linalg.dart';
+
+import 'BTdata.dart';
 
 String powerrssi(int s) {
   return "_s" + s.toString();
@@ -17,8 +21,21 @@ String distance(int rssi) {
       " m.";
 }
 
-String position(rssi) {
-  int x1 = 85,
+Future<String> position(rssi, String macadress) async {
+  var jsonx1 =
+      json.decode(await rootBundle.loadString('assets/db.json').toString());
+  print(jsonx1["devicesPosition"][macadress]["positionx"]);
+  var jsony1 =
+      json.decode(await rootBundle.loadString('assets/db.json').toString());
+  print(jsony1["devicesPosition"][macadress]["positiony"]);
+
+  var sx = DevicesPosition(12, 12, 3);
+  print(sx.toString());
+  // if (sx == null) {
+  //   //return sx = 0;
+  // }
+  //dynamic sy = BTData().devicesPosition?.b0BE8369621A?.positiony;
+  int x1 = 1,
       x2 = 15,
       x3 = 84,
       y1 = 63,
@@ -31,12 +48,17 @@ String position(rssi) {
       s2 = 3,
       s3 = 4;
   var x, y, z;
-
   final matrix1 = Matrix.fromList([
-    [1, x1 * (-2), y1 * (-2), z1 * (-2)],
+    [
+      1,
+      jsonx1["devicesPosition"][macadress]["positionx"] * (-2),
+      jsony1["devicesPosition"][macadress]["positiony"] * (-2),
+      z1 * (-2)
+    ],
     [1, x2 * (-2), y2 * (-2), z2 * (-2)],
     [1, x3 * (-2), y3 * (-2), z3 * (-2)],
   ]);
+  print(matrix1);
   // final matrix2 = Matrix.fromList([
   //   //[(x * x) + (y * y) + (z * z)],
   //   [x],
@@ -58,6 +80,8 @@ String position(rssi) {
 
   final a = matrix11Tit3[1];
   final asum = a.sum();
+
+  print(asum.toString());
   final b = matrix11Tit3[2];
   final bsum = b.sum();
   final c = matrix11Tit3[3];
@@ -74,10 +98,10 @@ String position(rssi) {
   return (
       // matrix11Tit3.toString()
       "your position is =" +
+          "\n" +
           (asum.toStringAsFixed(2)) +
           "," +
           (bsum.toStringAsFixed(2)) +
           "," +
           (csum.toStringAsFixed(2)).toString());
-  // ","
 }
