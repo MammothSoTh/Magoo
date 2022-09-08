@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-import 'cal.dart';
-
 class BluetoothDeviceListEntry extends ListTile {
   BluetoothDeviceListEntry({
     required BluetoothDevice device,
@@ -14,9 +12,13 @@ class BluetoothDeviceListEntry extends ListTile {
   }) : super(
           //
           title: Text(device.name ?? ""),
-          subtitle: Text(device.address.toString() +
-              "\n" +
-              position(rssi.toString(), device.address.toString()).toString()),
+          subtitle: Text(device.address.toString() + "\n"
+              // +
+              // position(rssi.toString(), device.address.toString())
+              //     .then((result) {
+              //   return result.toString();
+              // })
+              ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

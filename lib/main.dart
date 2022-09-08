@@ -52,6 +52,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
       results.clear();
       isDiscovering = true;
     });
+    print(results.toString());
 
     _startDiscovery();
   }
@@ -90,12 +91,12 @@ class _DiscoveryPage extends State<DiscoveryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
       body: Center(
         child: Container(
           color: Colors.brown.shade500,
           height: double.infinity,
-          width: 1000.0,
+          width: 500.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -105,9 +106,23 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                 color: Colors.white,
               ),
               Text(
+                'Your Position =' +
+                    results.map((element) {
+                      return element.rssi;
+                    }).join("/"),
                 style: TextStyle(color: Colors.white70),
-                "Tap Anywhere!!" + "\n" +
               ),
+              // ListView.builder(
+              //   itemCount: results.length,
+              //   itemBuilder: (BuildContext context, index) {
+              //     BluetoothDiscoveryResult result = results[index];
+              //     final device = result.device;
+              //     return BluetoothDeviceListEntry(
+              //       device: device,
+              //       rssi: result.rssi,
+              //     );
+              //   },
+              // ),
             ],
           ),
         ),
@@ -118,26 +133,6 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   // @override
   // Widget build(BuildContext context) {
   //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: isDiscovering
-  //           ? Text('Discovering devices')
-  //           : Text('Discovered devices'),
-  //       actions: <Widget>[
-  //         isDiscovering
-  //             ? FittedBox(
-  //                 child: Container(
-  //                   margin: new EdgeInsets.all(16.0),
-  //                   child: CircularProgressIndicator(
-  //                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-  //                   ),
-  //                 ),
-  //               )
-  //             : IconButton(
-  //                 icon: Icon(Icons.replay),
-  //                 onPressed: _restartDiscovery,
-  //               )
-  //       ],
-  //     ),
   //     body: ListView.builder(
   //       itemCount: results.length,
   //       itemBuilder: (BuildContext context, index) {

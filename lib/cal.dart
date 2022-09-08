@@ -10,24 +10,24 @@ String powerrssi(int s) {
   return "_s" + s.toString();
 }
 
-String distance(int rssi) {
+num distance(int rssi) {
   double n;
   int A;
   n = 2.4;
   A = -79;
-
-  return "distance = " +
-      (pow(10, ((A - rssi) / (10 * n)))).toStringAsFixed(3) +
-      " m.";
+  return pow(10, (A - rssi) / (10 * n));
 }
 
 Future<String> position(rssi, String macadress) async {
   var jsonx1 =
       json.decode(await rootBundle.loadString('assets/db.json').toString());
-  print(jsonx1["devicesPosition"][macadress]["positionx"]);
+  print(await jsonx1["devicesPosition"][macadress]["positionx"]);
   var jsony1 =
       json.decode(await rootBundle.loadString('assets/db.json').toString());
-  print(jsony1["devicesPosition"][macadress]["positiony"]);
+  print(await jsony1["devicesPosition"][macadress]["positiony"]);
+  var jsonz1 =
+      json.decode(await rootBundle.loadString('assets/db.json').toString());
+  print(await jsonz1["devicesPosition"][macadress]["positionz"]);
 
   var sx = DevicesPosition(12, 12, 3);
   print(sx.toString());
@@ -53,20 +53,13 @@ Future<String> position(rssi, String macadress) async {
       1,
       jsonx1["devicesPosition"][macadress]["positionx"] * (-2),
       jsony1["devicesPosition"][macadress]["positiony"] * (-2),
-      z1 * (-2)
+      jsonz1["devicesPosition"][macadress]["positionz"] * (-2),
     ],
     [1, x2 * (-2), y2 * (-2), z2 * (-2)],
     [1, x3 * (-2), y3 * (-2), z3 * (-2)],
   ]);
-  print(matrix1);
-  // final matrix2 = Matrix.fromList([
-  //   //[(x * x) + (y * y) + (z * z)],
-  //   [x],
-  //   [y],
-  //   [z],
-  // ]);
   final matrix3 = Matrix.fromList([
-    [4],
+    [455],
     [25],
     [560],
   ]);
@@ -80,7 +73,6 @@ Future<String> position(rssi, String macadress) async {
 
   final a = matrix11Tit3[1];
   final asum = a.sum();
-
   print(asum.toString());
   final b = matrix11Tit3[2];
   final bsum = b.sum();

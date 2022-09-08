@@ -1,21 +1,21 @@
 {
   "devicesPosition": {
-    "B0:BE:83:69:62:1A" : {
-      "name": "My Macbook",
+    "20:16:09:18:51:34" : {
+      "name": "BT 01",
       "positionx": 0,
       "positiony": 0,
       "positionz": 0
     },
-    "74:4c:A1:8C:CC:DA": {
-      "name": "Windows",
+    "20:16:09:08:32:69": {
+      "name": "BT 02",
       "positionx": 1,
       "positiony": 1,
       "positionz": 1
     },
-    "00:C3:F4:84:7C:A6": {
-      "name": "Windows",
-      "positionx": 1,
-      "positiony": 1,
+    "20:16:09:18:67:57": {
+      "name": "BT 03",
+      "positionx": 4,
+      "positiony": 5,
       "positionz": 1
     }
   }
