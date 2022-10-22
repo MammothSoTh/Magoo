@@ -1,46 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
+import 'cal.dart';
+
 class BluetoothDeviceListEntry extends ListTile {
   BluetoothDeviceListEntry({
     required BluetoothDevice device,
     int? rssi,
     String? l,
+    int? rssi1,
     GestureTapCallback? onTap,
     GestureLongPressCallback? onLongPress,
     bool enabled = true,
   }) : super(
           //
-          title: Text(device.name ?? ""),
-          subtitle: Text(device.address.toString() + "\n"
-              // +
-              // position(rssi.toString(), device.address.toString())
-              //     .then((result) {
-              //   return result.toString();
-              // })
-              ),
-          trailing: Row(
+          //title: Text(device.name ?? ""),
+          //subtitle: Text(device.address.toString() + "\n"
+          title: device.address.toString() == "A0:67:20:4B:84:7D".toString()
+              ? Container(
+                  child: Text(
+                    "distance from bt2 = ",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                )
+              : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
+                  ? Text(
+                      "distance from bt2 = ",
+                      style: TextStyle(color: Colors.white70),
+                    )
+                  : Text(device.address.toString()),
+          // +
+          // position(rssi.toString(), device.address.toString())
+          //     .then((result) {
+          //   return result.toString();
+          // })
+          //),
+          trailing: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              rssi != null
-                  ? Container(
-                      margin: new EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          //Text(rssi.toString() + "dBm"),
-                          //Text(distance(rssi)),
-                          //Text(position(rssi))
-                        ],
-                      ),
+              device.address.toString() == "A0:67:20:4B:84:7D".toString()
+                  ? Column(
+                      children: [Funtion1(rssi!), F()],
                     )
-                  : Container(width: 0, height: 0),
-              device.isConnected
-                  ? Icon(Icons.import_export)
-                  : Container(width: 0, height: 0),
-              device.isBonded
-                  ? Icon(Icons.link)
-                  : Container(width: 0, height: 0),
+                  : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
+                      ? Funtion1(rssi!)
+                      : Funtion1(rssi!)
             ],
           ),
         );

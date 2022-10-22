@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:ml_linalg/linalg.dart';
 
@@ -16,6 +17,16 @@ num distance(int rssi) {
   n = 2.4;
   A = -79;
   return pow(10, (A - rssi) / (10 * n));
+}
+
+int? rssi1;
+Widget Funtion1(int rssi) {
+  rssi1 = distance(rssi).toInt();
+  return Text(rssi1.toString());
+}
+
+Widget F() {
+  return Text(rssi1.toString());
 }
 
 Future<String> position(rssi, String macadress) async {
