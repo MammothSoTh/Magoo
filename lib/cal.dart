@@ -110,11 +110,11 @@ Future<String> position(rssi, String macadress) async {
           (csum.toStringAsFixed(2)).toString());
 }
 
-String positional(rssi, String macadress) {
+String positional() {
   int x1 = 1,
       y1 = 63,
       z1 = 13,
-      d1 = distance(rssi1!).toInt(), //device1=(x1,x2,x3)
+      d1 = distance(rssi1!).toInt(), //device1 = (x1,y1,z1)
       x2 = 15,
       y2 = 11,
       z2 = 14,
@@ -163,6 +163,10 @@ String positional(rssi, String macadress) {
       (bsum.toStringAsFixed(2)) +
       "," +
       (csum.toStringAsFixed(2)).toString());
+
+  rssi1 != null && rssi2 != null && rssi3 != null && rssi4 != null
+      ? print("yes")
+      : print("no");
   return (
       // matrix11Tit3.toString()
       "your position is =" +
