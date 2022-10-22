@@ -39,9 +39,9 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Starting Navigating to...'),
+        const Text('Starting Navigating to...' + '\n'),
         Text(widget.destination,
-            style: TextStyle(color: Colors.pink[200], fontSize: 36)),
+            style: TextStyle(color: Colors.brown, fontSize: 36)),
         const SizedBox(height: 24.0),
         destinationLocation.isNotEmpty
             ? Text('Destination: ${destinationLocation.join(" ")}')
