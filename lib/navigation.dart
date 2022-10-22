@@ -38,10 +38,9 @@ class MagooNavigationState extends State<MagooNavigation> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [Text("Go forward"), Icon(Icons.arrow_upward)],
-              ),
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [Text("Positioning")]),
             ]));
   }
 }
