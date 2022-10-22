@@ -40,7 +40,7 @@ class BluetoothDeviceListEntry extends ListTile {
             children: <Widget>[
               device.address.toString() == "A0:67:20:4B:84:7D".toString()
                   ? Column(
-                      children: [Funtion1(rssi!), F()],
+                      children: [Funtion1(rssi!)],
                     )
                   : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
                       ? Funtion1(rssi!)

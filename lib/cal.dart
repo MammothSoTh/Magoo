@@ -19,14 +19,15 @@ num distance(int rssi) {
   return pow(10, (A - rssi) / (10 * n));
 }
 
-int? rssi1;
+int? rssi1, rssi2, rssi3, rssi4;
 Widget Funtion1(int rssi) {
   rssi1 = distance(rssi).toInt();
   return Text(rssi1.toString());
 }
 
-Widget F() {
-  return Text(rssi1.toString());
+Widget Funtion2(int rssi) {
+  rssi2 = distance(rssi).toInt();
+  return Text(rssi2.toString());
 }
 
 Future<String> position(rssi, String macadress) async {
@@ -73,6 +74,70 @@ Future<String> position(rssi, String macadress) async {
     [455],
     [25],
     [560],
+  ]);
+  //x=((At*A)^-1)*At *B
+  final matrix1T = matrix1.transpose(); //1transpose
+  final matrix11T = matrix1T * matrix1; //1*1Transpose
+  final matrix11Ti = matrix11T.inverse(); //(1*1Transpose)^-1
+  final matrix11Ti1t = matrix11Ti * matrix1T; //((1*1Transpose)^-1)*1Transpose
+  final matrix11Tit3 =
+      matrix11Ti1t * matrix3; //(((1*1Transpose)^-1)*1Transpose)*2
+
+  final a = matrix11Tit3[1];
+  final asum = a.sum();
+  print(asum.toString());
+  final b = matrix11Tit3[2];
+  final bsum = b.sum();
+  final c = matrix11Tit3[3];
+  final csum = c.sum();
+  // print(matrix11Tit3);
+  //print("a=" + a.toString());
+  //final asum = a.sum();
+  print("your position is =" +
+      (asum.toStringAsFixed(2)) +
+      "," +
+      (bsum.toStringAsFixed(2)) +
+      "," +
+      (csum.toStringAsFixed(2)).toString());
+  return (
+      // matrix11Tit3.toString()
+      "your position is =" +
+          "\n" +
+          (asum.toStringAsFixed(2)) +
+          "," +
+          (bsum.toStringAsFixed(2)) +
+          "," +
+          (csum.toStringAsFixed(2)).toString());
+}
+
+String positional(rssi, String macadress) {
+  int x1 = 1,
+      y1 = 63,
+      z1 = 13,
+      d1 = distance(rssi1!).toInt(), //device1=(x1,x2,x3)
+      x2 = 15,
+      y2 = 11,
+      z2 = 14,
+      d2 = distance(rssi2!).toInt(),
+      x3 = 19,
+      y3 = 12,
+      z3 = 15,
+      x4 = 13,
+      y4 = 9,
+      z4 = 15;
+
+  var x, y, z;
+  final matrix1 = Matrix.fromList([
+    [1, x1 * (-2), y1 * (-2), z1 * (-2)],
+    [1, x2 * (-2), y2 * (-2), z2 * (-2)],
+    [1, x3 * (-2), y3 * (-2), z3 * (-2)],
+    [1, x4 * (-2), y4 * (-2), z4 * (-2)],
+  ]);
+  final matrix3 = Matrix.fromList([
+    [sqrt(d1) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
+    [sqrt(d2) - sqrt(x2) - sqrt(y2) - sqrt(z2)],
+    [sqrt(d2) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
+    [sqrt(d1) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
   ]);
   //x=((At*A)^-1)*At *B
   final matrix1T = matrix1.transpose(); //1transpose
