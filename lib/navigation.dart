@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:magoo101/speech.dart';
 
 class MagooNavigation extends StatefulWidget {
   final List<double> destination;
@@ -24,46 +23,25 @@ class MagooNavigationState extends State<MagooNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.brown),
-        title: Text(
-          "Navigating to ${widget.destinationName}",
-          style: const TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: Center(
-        child: MaterialButton(
-          color: Colors.brown.shade500,
-          height: double.infinity,
-          minWidth: 1000.0,
-          onPressed: () {
-            Future.delayed(Duration(milliseconds: 300), () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const MagooSpeechRecognitionPage()));
-            });
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.arrow_upward,
-                size: 170,
-                color: Colors.white,
-              ),
-              Text(
-                'Go Forward',
-                style: TextStyle(color: Colors.white70),
-              ),
-            ],
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.pink),
+          title: Text(
+            "Navigating to ${widget.destinationName}",
+            style: const TextStyle(color: Colors.black),
           ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
         ),
-      ),
-    );
+        body: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [Text("Go forward"), Icon(Icons.arrow_upward)],
+              ),
+            ]));
   }
 }

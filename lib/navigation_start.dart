@@ -20,13 +20,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
   }
 
   void _initNavigation() {
-    Future.delayed(const Duration(milliseconds: 800), () {
-      setState(() {
-        navigationStatus = 'Start Navigating....';
-      });
-    });
-
-    Future.delayed(const Duration(milliseconds: 800), () {
+    Future.delayed(const Duration(milliseconds: 1800), () {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
