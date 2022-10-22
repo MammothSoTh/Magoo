@@ -25,15 +25,15 @@ class MagooNavigationState extends State<MagooNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.brown),
-        title: Text(
-          "Navigating to ${widget.destinationName}",
-          style: const TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
+      // appBar: AppBar(
+      //   iconTheme: const IconThemeData(color: Colors.brown),
+      //   title: Text(
+      //     "Navigating to ${widget.destinationName}",
+      //     style: const TextStyle(color: Colors.black),
+      //   ),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0.0,
+      // ),
       body: MaterialApp(
         title: 'Magoo Indoor Navigation',
         theme: ThemeData(
