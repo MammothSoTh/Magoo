@@ -19,13 +19,13 @@ class BluetoothDeviceListEntry extends ListTile {
           title: device.address.toString() == "A0:67:20:4B:84:7D".toString()
               ? Container(
                   child: Text(
-                    "distance from bt2 = ",
+                    "distance from bt 1 = ",
                     style: TextStyle(color: Colors.white70),
                   ),
                 )
               : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
                   ? Text(
-                      "distance from bt2 = ",
+                      "distance from bt 2 = ",
                       style: TextStyle(color: Colors.white70),
                     )
                   : Text(device.address.toString()),
@@ -39,11 +39,19 @@ class BluetoothDeviceListEntry extends ListTile {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               device.address.toString() == "A0:67:20:4B:84:7D".toString()
-                  ? Column(
-                      children: [Funtion1(rssi!)],
+                  ? Container(
+                      child: Text(
+                        distance(rssi!).toString(), //AsFixed(2) + " m.",
+                        style: TextStyle(color: Colors.white70),
+                      ),
                     )
                   : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
-                      ? Funtion1(rssi!)
+                      ? Container(
+                          child: Text(
+                            distance(rssi!).toString(), //AsFixed(2) + " m.",
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        )
                       : Funtion1(rssi!)
             ],
           ),

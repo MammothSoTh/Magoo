@@ -58,7 +58,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     _startDiscovery();
   }
 
-  void _startDiscovery() {
+  Future<void> _startDiscovery() async {
+    await FlutterBluetoothSerial.instance.cancelDiscovery();
     _streamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
       setState(() {
@@ -144,14 +145,28 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                 size: 50,
                 color: Colors.white,
               ),
-              Text(
-                '\n'
-                        'Your Position is ' +
-                    results.map((element) {
-                      return element.rssi;
-                    }).join("/"),
-                style: TextStyle(color: Colors.white70),
-              ),
+              // positional().toString() != null
+              //     ? Text(
+              //         '\n'
+              //                 'Your Position is ' +
+              //             positional().toString(),
+              //         // results.map((element) {
+              //         //   return element.rssi;
+              //         // }
+              //         // ).join("/"),
+              //         style: TextStyle(color: Colors.white70),
+              //       )
+              //     : Text(
+              //         '\n'
+              //         'Findind your position',
+              //
+              //         // results.map((element) {
+              //         //   return element.rssi;
+              //         // }
+              //         // ).join("/"),
+              //         style: TextStyle(color: Colors.white70),
+              //       )
+
               // position.toString() !== null
               //     ? Text(
               //         "Your Position = "+ position.tostring,

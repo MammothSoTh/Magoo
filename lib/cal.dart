@@ -110,7 +110,7 @@ Future<String> position(rssi, String macadress) async {
           (csum.toStringAsFixed(2)).toString());
 }
 
-String positional() {
+String? positional() {
   int x1 = 1,
       y1 = 63,
       z1 = 13,
@@ -149,12 +149,12 @@ String positional() {
 
   final a = matrix11Tit3[1];
   final asum = a.sum();
-  print(asum.toString());
+  //print(asum.toString());
   final b = matrix11Tit3[2];
   final bsum = b.sum();
   final c = matrix11Tit3[3];
   final csum = c.sum();
-  // print(matrix11Tit3);
+  print(matrix11Tit3);
   //print("a=" + a.toString());
   //final asum = a.sum();
   print("your position is =" +
@@ -164,16 +164,17 @@ String positional() {
       "," +
       (csum.toStringAsFixed(2)).toString());
 
-  rssi1 != null && rssi2 != null && rssi3 != null && rssi4 != null
-      ? print("yes")
-      : print("no");
-  return (
-      // matrix11Tit3.toString()
-      "your position is =" +
-          "\n" +
-          (asum.toStringAsFixed(2)) +
-          "," +
-          (bsum.toStringAsFixed(2)) +
-          "," +
-          (csum.toStringAsFixed(2)).toString());
+  if (rssi1 != null && rssi2 != null && rssi3 != null && rssi4 != null)
+    return (null);
+  else
+    return (matrix11Tit3.toString());
+  // return (
+  //     // matrix11Tit3.toString()
+  //     "your position is =" +
+  //         "\n" +
+  //         (asum.toStringAsFixed(2)) +
+  //         "," +
+  //         (bsum.toStringAsFixed(2)) +
+  //         "," +
+  //         (csum.toStringAsFixed(2)).toString());
 }
