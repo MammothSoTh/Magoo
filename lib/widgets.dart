@@ -3,6 +3,8 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 import 'cal.dart';
 
+int? r1;
+
 class BluetoothDeviceListEntry extends ListTile {
   BluetoothDeviceListEntry({
     required BluetoothDevice device,
@@ -41,18 +43,21 @@ class BluetoothDeviceListEntry extends ListTile {
               device.address.toString() == "A0:67:20:4B:84:7D".toString()
                   ? Container(
                       child: Text(
-                        distance(rssi!).toString(), //AsFixed(2) + " m.",
+                        togetvalue(rssi!).toString(), //AsFixed(2) + " m.",
+                        // +
+                        // rssi1re().toString(),
                         style: TextStyle(color: Colors.white70),
                       ),
                     )
                   : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
                       ? Container(
                           child: Text(
-                            distance(rssi!).toString(), //AsFixed(2) + " m.",
+                            //positional().toString(),
+                            togetvalue2(rssi!).toString(), //AsFixed(2) + " m.",
                             style: TextStyle(color: Colors.white70),
                           ),
                         )
-                      : Funtion1(rssi!)
+                      : Container(child: Text(distance(rssi!).toString()))
             ],
           ),
         );

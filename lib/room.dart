@@ -145,6 +145,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                 size: 50,
                 color: Colors.white,
               ),
+              //Text(positional().toString())
               // positional().toString() != null
               //     ? Text(
               //         '\n'
