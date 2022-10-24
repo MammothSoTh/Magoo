@@ -15,7 +15,7 @@ class MagooApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: const MagooHomePage(),
+      home: MagooHomePage(),
     );
   }
 }

@@ -45,6 +45,9 @@ dependencies:
   ml_linalg: ^13.10.0
   #json_annotation: ^3.0.0
   speech_to_text: ^5.6.1
+  audioplayers: ^1.1.1
+  http: ^0.13.0
+  #assets_audio_player: ^3.0.3+3
   #flutter_speech: ^2.0.0
   #speech_to_text: ^5.6.0
 
@@ -84,10 +87,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
- # assets:
-  #  - assets/json/
-  #- assets/
-
+  assets:
+     - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

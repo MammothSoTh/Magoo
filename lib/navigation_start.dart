@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magoo101/navigation.dart';
+import 'package:magoo101/tts.dart';
 
 class MagooNavigationStart extends StatefulWidget {
   final String destination;
@@ -23,12 +24,14 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
     Future.delayed(const Duration(milliseconds: 1800), () {
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) => MagooNavigation(
-                    destination: destinationLocation,
-                    assign: userLocation,
-                    destinationName: widget.destination,
-                  )));
+          destinationLocation.toString() == "ห้องน้ำ".toString()
+              ? MaterialPageRoute(
+                  builder: (context) => MagooNavigation(
+                        destination: destinationLocation,
+                        assign: userLocation,
+                        destinationName: widget.destination,
+                      ))
+              : MaterialPageRoute(builder: (context) => tts()));
     });
   }
 

@@ -21,13 +21,13 @@ double rssi1 = 9999, rssi2 = 9999, rssi3 = 9999, rssi4 = 9999;
 
 String togetvalue(rssi) {
   final double rssi1 = distance(rssi)!.toDouble();
-  //print("rssi1 = " + rssi1.toString());
+  print("rssi1 = " + rssi1.toString());
   return rssi1.toString();
 }
 
 String togetvalue2(rssi) {
   final double rssi2 = distance(rssi)!.toDouble();
-  print("rssi1 = " + rssi1.toString());
+  //print("rssi2 = " + rssi1.toString());
   return rssi2.toString();
 }
 
@@ -46,6 +46,7 @@ String? positional() {
       x4 = 13,
       y4 = 9,
       z4 = 15;
+  int? d1 = rssi1.toInt(), d2 = rssi2.toInt();
   //device1 = (x1,y1,z1)
   // var x, y, z;
   final matrix1 = Matrix.fromList([
@@ -55,10 +56,10 @@ String? positional() {
     [1, x4 * (-2), y4 * (-2), z4 * (-2)],
   ]);
   final matrix3 = Matrix.fromList([
-    [sqrt(d1!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
-    [sqrt(d2!) - sqrt(x2) - sqrt(y2) - sqrt(z2)],
-    [sqrt(d2!) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
-    [sqrt(d1!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
+    [sqrt(d1) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
+    [sqrt(d2) - sqrt(x2) - sqrt(y2) - sqrt(z2)],
+    [sqrt(d2) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
+    [sqrt(d1) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
   ]);
   //x=((At*A)^-1)*At *B
   final matrix1T = matrix1.transpose(); //1transpose
@@ -99,5 +100,7 @@ String? positional() {
           "," +
           (bsum.toStringAsFixed(2)) +
           "," +
-          (csum.toStringAsFixed(2)).toString());
+          (csum.toStringAsFixed(2)).toString() +
+          "  d1=" +
+          d1.toString());
 }

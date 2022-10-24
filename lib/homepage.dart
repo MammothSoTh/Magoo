@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:magoo101/speech.dart';
 
 class MagooHomePage extends StatelessWidget {
-  const MagooHomePage({super.key});
+  // const MagooHomePage({super.key});
+  final FlutterTts flutterTts = FlutterTts();
+  final TextEditingController textEditingController = TextEditingController();
+  speak() async {
+    await flutterTts.setLanguage("en-US");
+    //await flutterTts.setLanguage("th-TH");
+    await flutterTts.setPitch(1);
+    await flutterTts.speak("tap and tell where you want to go".toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +35,7 @@ class MagooHomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) =>
                               const MagooSpeechRecognitionPage()));
+                  speak();
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -57,7 +57,7 @@ class BluetoothDeviceListEntry extends ListTile {
                             style: TextStyle(color: Colors.white70),
                           ),
                         )
-                      : Container(child: Text(distance(rssi!).toString()))
+                      : Container(child: Text(positional().toString()))
             ],
           ),
         );
