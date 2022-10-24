@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:magoo101/navigation.dart';
-import 'package:magoo101/tts.dart';
 
 class MagooNavigationStart extends StatefulWidget {
   final String destination;
@@ -14,6 +14,18 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
   String navigationStatus = 'Initializing...';
   List<double> destinationLocation = [];
   List<double> userLocation = [];
+  bool gobedroom = false;
+  bool gobathroom = false;
+  bool golivingroom = false;
+  final FlutterTts flutterTts = FlutterTts();
+  final TextEditingController textEditingController = TextEditingController();
+  speak() async {
+    await flutterTts.setLanguage("en-US");
+    //await flutterTts.setLanguage("th-TH");
+    await flutterTts.setPitch(1);
+    await flutterTts.speak("tap and tell where you want to go".toString());
+  }
+
   @override
   void initState() {
     super.initState();
@@ -22,16 +34,50 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
 
   void _initNavigation() {
     Future.delayed(const Duration(milliseconds: 1800), () {
-      Navigator.pushReplacement(
-          context,
-          destinationLocation.toString() == "ห้องน้ำ".toString()
-              ? MaterialPageRoute(
+      widget.destination.toString() == "ห้องน้ำ".toString()
+          ? Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
                   builder: (context) => MagooNavigation(
                         destination: destinationLocation,
                         assign: userLocation,
                         destinationName: widget.destination,
-                      ))
-              : MaterialPageRoute(builder: (context) => tts()));
+                        gobedroom: gobedroom = true,
+                      )))
+          : widget.destination.toString() == "ห้องนอน".toString()
+              ? Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MagooNavigation(
+                            destination: destinationLocation,
+                            assign: userLocation,
+                            destinationName: widget.destination,
+                            gobedroom: gobedroom,
+                          )))
+              : widget.destination.toString() == "ห้องนั่งเล่น".toString()
+                  ? Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MagooNavigation(
+                                destination: destinationLocation,
+                                assign: userLocation,
+                                destinationName: widget.destination,
+                                gobedroom: gobedroom,
+                              )))
+                  : {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MagooNavigationFail(
+                                    destination: destinationLocation,
+                                    assign: userLocation,
+                                    destinationName: widget.destination,
+                                    gobedroom: gobedroom,
+                                  ))),
+                      flutterTts.speak(
+                          "No Position in database please tap and try again"
+                              .toString())
+                    };
     });
   }
 
