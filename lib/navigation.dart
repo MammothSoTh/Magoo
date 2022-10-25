@@ -117,16 +117,14 @@ class MagooNavigationFailState extends State<MagooNavigationFail> {
                   MaterialPageRoute(
                     builder: (context) => MagooSpeechRecognitionPage(),
                   ));
-              // flutterTts.speak(
-              //     "No Position in database please tap and try again"
-              //         .toString());
+              flutterTts.speak("tap and tell where you want to go".toString());
             });
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
-                Icons.do_not_disturb,
+                Icons.do_not_disturb_alt,
                 size: 200,
                 color: Colors.white,
               ),

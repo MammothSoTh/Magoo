@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:magoo101/widgets.dart';
 
+import 'cal.dart';
+
 //void main() => runApp(new MyApp());
 
 // class MyApp extends StatelessWidget {
@@ -24,7 +26,6 @@ import 'package:magoo101/widgets.dart';
 class DiscoveryPage extends StatefulWidget {
   /// If true, discovery starts on page start, otherwise user must press action button.
   final bool start;
-
   const DiscoveryPage({this.start = true});
 
   @override
@@ -33,6 +34,7 @@ class DiscoveryPage extends StatefulWidget {
 
 class _DiscoveryPage extends State<DiscoveryPage> {
   StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
+  Distancing distancing = new Distancing();
   List<BluetoothDiscoveryResult> results =
       List<BluetoothDiscoveryResult>.empty(growable: true);
   bool isDiscovering = false;
@@ -135,7 +137,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                     final address = device.address;
                     return BluetoothDeviceListEntry(
                       device: device,
-                      rssi: result.rssi,
+                      rssi: result.rssi, distancing: this.distancing,
+                      //distancing: Distancing(1,2,3,4),
                     );
                   },
                 ),
