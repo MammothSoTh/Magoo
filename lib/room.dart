@@ -151,9 +151,9 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               // Text(distancing.positional().toString())
               if (distancing.positional().toString() != "null")
                 Text(
-                  '\n'
-                          'Your Position is ' +
-                      distancing.positional().toString(),
+                  // '\n'
+                  //'Your Position is ' +
+                  distancing.positional().toString(),
                   // results.map((element) {
                   //   return element.rssi;
                   // }

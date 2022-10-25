@@ -30,7 +30,7 @@ class BluetoothDeviceListEntry extends ListTile {
                     style: TextStyle(color: Colors.white70),
                   ),
                 )
-              : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
+              : device.address.toString() == "00:C3:F4:84:7C:A6".toString()
                   ? Text(
                       "distance from bt 2 = ",
                       style: TextStyle(color: Colors.white70),
@@ -67,7 +67,7 @@ class BluetoothDeviceListEntry extends ListTile {
                         style: TextStyle(color: Colors.white70),
                       ),
                     )
-                  : device.address.toString() == "E0:67:81:7E:3C:6B".toString()
+                  : device.address.toString() == "00:C3:F4:84:7C:A6".toString()
                       ? Container(
                           child: Text(
                             distancing.setdistance2(rssi!).toString(),
@@ -98,10 +98,10 @@ class BluetoothDeviceListEntry extends ListTile {
                                 )
                               : Container(
                                   child: Text(
-                                      // "ji",
-                                      distancing.positional().toString()
-                                      // +                              distancing.setdistance1(99999).toString(),
-                                      ))
+                                  "Don't recognize this divice",
+                                  //distancing.positional().toString()
+                                  // +                              distancing.setdistance1(99999).toString(),
+                                ))
             ],
           ),
         );

@@ -32,7 +32,7 @@ class Distancing extends ChangeNotifier {
   // Method.
   num? setdistance1(int rssi1) {
     this.rssi1 = rssi1;
-    var distance1 = distance(rssi1!);
+    var distance1 = distance(rssi1);
     notifyListeners();
     print("rssi1 = ");
     print(rssi1);
@@ -42,7 +42,7 @@ class Distancing extends ChangeNotifier {
   num? setdistance2(int rssi2) {
     //this.distance2 = distance(rssi2) as int?;
     this.rssi2 = rssi2;
-    var distance2 = distance(rssi2!);
+    var distance2 = distance(rssi2);
     notifyListeners();
     print("rssi2 = ");
     print(rssi2);
@@ -51,7 +51,7 @@ class Distancing extends ChangeNotifier {
 
   num? setdistance3(int rssi3) {
     this.rssi3 = rssi3;
-    var distance3 = distance(rssi3!);
+    var distance3 = distance(rssi3);
     notifyListeners();
     print("rssi3 = ");
     print(rssi3);
@@ -60,7 +60,7 @@ class Distancing extends ChangeNotifier {
 
   num? setdistance4(int rssi4) {
     this.rssi4 = rssi4;
-    var distance4 = distance(rssi4!);
+    var distance4 = distance(rssi4);
     notifyListeners();
     print("rssi4 = ");
     print(rssi4);
@@ -137,16 +137,17 @@ class Distancing extends ChangeNotifier {
 
     if (distance1 != 0 && distance2 != 0)
       return (
-          // matrix11Tit3.toString()
-          "your position is =" +
-              "\n" +
-              (asum.toStringAsFixed(2)) +
-              "," +
-              (bsum.toStringAsFixed(2)) +
-              "," +
-              (csum.toStringAsFixed(2)).toString() +
-              "  d2=" +
-              distance2.toString());
+              // matrix11Tit3.toString()
+              "your position is" +
+                  "\n" +
+                  (asum.toStringAsFixed(2)) +
+                  "," +
+                  (bsum.toStringAsFixed(2)) +
+                  "," +
+                  (csum.toStringAsFixed(2)).toString()
+          //+ "  d2=" +
+          // distance2.toString()
+          );
     else
       return ("null".toString());
   }
