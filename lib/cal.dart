@@ -30,7 +30,7 @@ class Distancing extends ChangeNotifier {
 
   // Method.
   int? setdistance1(int rssi1) {
-    this.rssi1 = distance(rssi1) as int?;
+    this.rssi1 = rssi1;
     notifyListeners();
     print("rssi1 = ");
     print(rssi1);
@@ -70,7 +70,11 @@ class Distancing extends ChangeNotifier {
         x4 = 13,
         y4 = 9,
         z4 = 15;
-    int? distance1 = distance(rssi1!)?.toInt();
+    var distance1 = distance(rssi1!);
+    var distance2 = distance(rssi2!);
+    print("rssi2 =" + distance1.toString());
+    var distance3 = distance(rssi3!);
+    var distance4 = distance(rssi4!);
     //device1 = (x1,y1,z1)
     // var x, y, z;
     final matrix1 = Matrix.fromList([
@@ -81,9 +85,9 @@ class Distancing extends ChangeNotifier {
     ]);
     final matrix3 = Matrix.fromList([
       [sqrt(distance1!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
-      [sqrt(distance1!) - sqrt(x2) - sqrt(y2) - sqrt(z2)],
-      [sqrt(distance1!) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
-      [sqrt(distance1!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
+      [sqrt(distance2!) - sqrt(x2) - sqrt(y2) - sqrt(z2)],
+      [sqrt(distance1) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
+      [sqrt(distance1) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
     ]);
     //x=((At*A)^-1)*At *B
     final matrix1T = matrix1.transpose(); //1transpose
@@ -110,21 +114,20 @@ class Distancing extends ChangeNotifier {
         "," +
         (csum.toStringAsFixed(2)).toString());
 
-    // if (rssi1 != null && rssi2 != null && rssi3 != null && rssi4 != null)
-    //   return ("null".toString());
-    // else
-    //   return (matrix11Tit3.toString());
-    return (
-        // matrix11Tit3.toString()
-        "your position is =" +
-            "\n" +
-            (asum.toStringAsFixed(2)) +
-            "," +
-            (bsum.toStringAsFixed(2)) +
-            "," +
-            (csum.toStringAsFixed(2)).toString() +
-            "  d1=" +
-            distance1.toString());
+    if (distance1 != 0 && distance2 != 0)
+      return (
+          // matrix11Tit3.toString()
+          "your position is =" +
+              "\n" +
+              (asum.toStringAsFixed(2)) +
+              "," +
+              (bsum.toStringAsFixed(2)) +
+              "," +
+              (csum.toStringAsFixed(2)).toString() +
+              "  d2=" +
+              distance2.toString());
+    else
+      return ("null".toString());
   }
 }
 

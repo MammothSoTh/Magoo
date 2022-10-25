@@ -148,28 +148,29 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                 size: 50,
                 color: Colors.white,
               ),
-              //Text(positional().toString())
-              // positional().toString() != null
-              //     ? Text(
-              //         '\n'
-              //                 'Your Position is ' +
-              //             positional().toString(),
-              //         // results.map((element) {
-              //         //   return element.rssi;
-              //         // }
-              //         // ).join("/"),
-              //         style: TextStyle(color: Colors.white70),
-              //       )
-              //     : Text(
-              //         '\n'
-              //         'Findind your position',
-              //
-              //         // results.map((element) {
-              //         //   return element.rssi;
-              //         // }
-              //         // ).join("/"),
-              //         style: TextStyle(color: Colors.white70),
-              //       )
+              // Text(distancing.positional().toString())
+              if (distancing.positional().toString() != "null")
+                Text(
+                  '\n'
+                          'Your Position is ' +
+                      distancing.positional().toString(),
+                  // results.map((element) {
+                  //   return element.rssi;
+                  // }
+                  // ).join("/"),
+                  style: TextStyle(color: Colors.white70),
+                )
+              else
+                Text(
+                  '\n'
+                  "Can't find your position",
+
+                  // results.map((element) {
+                  //   return element.rssi;
+                  // }
+                  // ).join("/"),
+                  style: TextStyle(color: Colors.white70),
+                )
 
               // position.toString() !== null
               //     ? Text(

@@ -45,7 +45,7 @@ class BluetoothDeviceListEntry extends ListTile {
           trailing: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              device.address.toString() == "43:CE:8D:8A:E3:C0".toString()
+              device.address.toString() == "7D:6A:05:72:D9:23".toString()
                   ? Container(
                       child: Text(
                         //"dh",
