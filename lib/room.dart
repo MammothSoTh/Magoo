@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:magoo101/navigation_start.dart';
 import 'package:magoo101/widgets.dart';
 
@@ -36,6 +37,8 @@ class DiscoveryPage extends StatefulWidget {
 class _DiscoveryPage extends State<DiscoveryPage> {
   StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
   Distancing distancing = new Distancing();
+  final FlutterTts flutterTts = FlutterTts();
+
   Goto goto = new Goto();
   List<BluetoothDiscoveryResult> results =
       List<BluetoothDiscoveryResult>.empty(growable: true);
@@ -58,12 +61,13 @@ class _DiscoveryPage extends State<DiscoveryPage> {
       isDiscovering = true;
     });
     print(results.toString());
-
+    distancing.setallzero();
     _startDiscovery();
   }
 
   Future<void> _startDiscovery() async {
     await FlutterBluetoothSerial.instance.cancelDiscovery();
+
     _streamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
       setState(() {
@@ -93,6 +97,12 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     _streamSubscription?.cancel();
 
     super.dispose();
+  }
+
+  @override
+  void initState2() {
+    super.initState();
+    _initNavigation2();
   }
 
   @override
@@ -178,6 +188,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                   style: TextStyle(color: Colors.white70),
                 )
 
+              // flutterTts.speak("Finding your position"))
+
               // position.toString() !== null
               //     ? Text(
               //         "Your Position = "+ position.tostring,
@@ -187,5 +199,16 @@ class _DiscoveryPage extends State<DiscoveryPage> {
             ]),
       ),
     );
+  }
+
+  void _initNavigation2() {
+    Future.delayed(const Duration(milliseconds: 1800), () {
+      distancing.positional() != "Null".toString()
+          ? flutterTts.speak("No Position in database please tap and try again")
+          //distancing.positional().X ==
+
+          : flutterTts.speak(
+              "No Position in database please tap and try again".toString());
+    });
   }
 }

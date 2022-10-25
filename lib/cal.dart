@@ -19,7 +19,7 @@ num? distance(int rssi) {
 }
 
 class Distancing extends ChangeNotifier {
-  late int? rssi1 = 99999, rssi2 = 99999, rssi3 = 99999, rssi4 = 99999;
+  late int? rssi1 = 0, rssi2 = 0, rssi3 = 0, rssi4 = 0;
 
   Distancing(
       // [this.distance1 = 9999999,
@@ -64,6 +64,17 @@ class Distancing extends ChangeNotifier {
     print("rssi4 = ");
     print(rssi4);
     return distance4;
+  }
+
+  String setallzero() {
+    this.rssi1 = 0;
+    this.rssi2 = 0;
+    this.rssi3 = 0;
+    this.rssi4 = 0;
+    //var distance4 = distance(rssi4);
+    notifyListeners();
+
+    return "Don't recognize this divice";
   }
 
   num? distance(int rssi) {
@@ -133,8 +144,11 @@ class Distancing extends ChangeNotifier {
         (bsum.toStringAsFixed(2)) +
         "," +
         (csum.toStringAsFixed(2)).toString());
+    var X = asum.toStringAsFixed(2);
+    var Y = bsum.toStringAsFixed(2);
+    var Z = csum.toStringAsFixed(2);
 
-    if (distance1 != 0 && distance2 != 0 && distance3 != 0 && distance4 != 0)
+    if (rssi1 != 0 && rssi2 != 0 && rssi3 != 0 && rssi4 != 0)
       return (
               // matrix11Tit3.toString()
               "your position is" +
