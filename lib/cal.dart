@@ -20,6 +20,7 @@ num? distance(int rssi) {
 
 class Distancing extends ChangeNotifier {
   late int? rssi1 = 99999, rssi2 = 99999, rssi3 = 99999, rssi4 = 99999;
+  int a = 2;
 
   Distancing(
       // [this.distance1 = 9999999,
@@ -29,21 +30,41 @@ class Distancing extends ChangeNotifier {
       ) {}
 
   // Method.
-  int? setdistance1(int rssi1) {
+  num? setdistance1(int rssi1) {
     this.rssi1 = rssi1;
+    var distance1 = distance(rssi1!);
     notifyListeners();
     print("rssi1 = ");
     print(rssi1);
-    return rssi1;
+    return distance1;
   }
 
-  int? setdistance2(int rssi2) {
+  num? setdistance2(int rssi2) {
     //this.distance2 = distance(rssi2) as int?;
     this.rssi2 = rssi2;
+    var distance2 = distance(rssi2!);
     notifyListeners();
     print("rssi2 = ");
     print(rssi2);
-    return rssi2;
+    return distance2;
+  }
+
+  num? setdistance3(int rssi3) {
+    this.rssi3 = rssi3;
+    var distance3 = distance(rssi3!);
+    notifyListeners();
+    print("rssi3 = ");
+    print(rssi3);
+    return distance3;
+  }
+
+  num? setdistance4(int rssi4) {
+    this.rssi4 = rssi4;
+    var distance4 = distance(rssi4!);
+    notifyListeners();
+    print("rssi4 = ");
+    print(rssi4);
+    return distance4;
   }
 
   num? distance(int rssi) {
@@ -86,8 +107,8 @@ class Distancing extends ChangeNotifier {
     final matrix3 = Matrix.fromList([
       [sqrt(distance1!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
       [sqrt(distance2!) - sqrt(x2) - sqrt(y2) - sqrt(z2)],
-      [sqrt(distance1) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
-      [sqrt(distance1) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
+      [sqrt(distance3!) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
+      [sqrt(distance4!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
     ]);
     //x=((At*A)^-1)*At *B
     final matrix1T = matrix1.transpose(); //1transpose

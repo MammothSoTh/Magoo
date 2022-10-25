@@ -23,7 +23,7 @@ class BluetoothDeviceListEntry extends ListTile {
           //
           //title: Text(device.name ?? ""),
           //subtitle: Text(device.address.toString() + "\n"
-          title: device.address.toString() == "A0:67:20:4B:84:7D".toString()
+          title: device.address.toString() == "DC:72:23:B4:DE:AA".toString()
               ? Container(
                   child: Text(
                     "distance from bt 1 = ",
@@ -35,7 +35,18 @@ class BluetoothDeviceListEntry extends ListTile {
                       "distance from bt 2 = ",
                       style: TextStyle(color: Colors.white70),
                     )
-                  : Text(device.address.toString()),
+                  : device.address.toString() == "10:76:36:8D:63:0A".toString()
+                      ? Text(
+                          "distance from bt 3 = ",
+                          style: TextStyle(color: Colors.white70),
+                        )
+                      : device.address.toString() ==
+                              "73:22:66:50:7A:E4".toString()
+                          ? Text(
+                              "distance from bt 4 = ",
+                              style: TextStyle(color: Colors.white70),
+                            )
+                          : Text(device.address.toString()),
           // +
           // position(rssi.toString(), device.address.toString())
           //     .then((result) {
@@ -45,7 +56,7 @@ class BluetoothDeviceListEntry extends ListTile {
           trailing: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              device.address.toString() == "7D:6A:05:72:D9:23".toString()
+              device.address.toString() == "DC:72:23:B4:DE:AA".toString()
                   ? Container(
                       child: Text(
                         //"dh",
@@ -65,12 +76,32 @@ class BluetoothDeviceListEntry extends ListTile {
                             style: TextStyle(color: Colors.white70),
                           ),
                         )
-                      : Container(
-                          child: Text(
-                              // "ji",
-                              distancing.positional().toString()
-                              // +                              distancing.setdistance1(99999).toString(),
-                              ))
+                      : device.address.toString() ==
+                              "10:76:36:8D:63:0A".toString()
+                          ? Container(
+                              child: Text(
+                                distancing.setdistance3(rssi!).toString(),
+                                //positional().toString(),
+                                //togetvalue2(rssi!).toString(), //AsFixed(2) + " m.",
+                                style: TextStyle(color: Colors.white70),
+                              ),
+                            )
+                          : device.address.toString() ==
+                                  "73:22:66:50:7A:E4".toString()
+                              ? Container(
+                                  child: Text(
+                                    distancing.setdistance4(rssi!).toString(),
+                                    //positional().toString(),
+                                    //togetvalue2(rssi!).toString(), //AsFixed(2) + " m.",
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                )
+                              : Container(
+                                  child: Text(
+                                      // "ji",
+                                      distancing.positional().toString()
+                                      // +                              distancing.setdistance1(99999).toString(),
+                                      ))
             ],
           ),
         );

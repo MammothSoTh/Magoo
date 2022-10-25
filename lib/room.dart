@@ -163,7 +163,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               else
                 Text(
                   '\n'
-                  "Can't find your position",
+                  "Finding your position",
 
                   // results.map((element) {
                   //   return element.rssi;
