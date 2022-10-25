@@ -19,10 +19,7 @@ num? distance(int rssi) {
 }
 
 class Distancing extends ChangeNotifier {
-  late int? distance1 = 99999,
-      distance2 = 99999,
-      distance3 = 99999,
-      distance4 = 99999;
+  late int? rssi1 = 99999, rssi2 = 99999, rssi3 = 99999, rssi4 = 99999;
 
   Distancing(
       // [this.distance1 = 9999999,
@@ -33,19 +30,20 @@ class Distancing extends ChangeNotifier {
 
   // Method.
   int? setdistance1(int rssi1) {
-    this.distance1 = distance(rssi1) as int?;
+    this.rssi1 = distance(rssi1) as int?;
     notifyListeners();
     print("rssi1 = ");
     print(rssi1);
-    return distance1;
+    return rssi1;
   }
 
   int? setdistance2(int rssi2) {
-    this.distance2 = distance(rssi2) as int?;
+    //this.distance2 = distance(rssi2) as int?;
+    this.rssi2 = rssi2;
     notifyListeners();
     print("rssi2 = ");
     print(rssi2);
-    return distance2;
+    return rssi2;
   }
 
   num? distance(int rssi) {
@@ -72,7 +70,7 @@ class Distancing extends ChangeNotifier {
         x4 = 13,
         y4 = 9,
         z4 = 15;
-    int? d1 = distance1?.toInt(); //d2 = rssi2.toInt();
+    int? distance1 = distance(rssi1!)?.toInt();
     //device1 = (x1,y1,z1)
     // var x, y, z;
     final matrix1 = Matrix.fromList([
@@ -126,7 +124,7 @@ class Distancing extends ChangeNotifier {
             "," +
             (csum.toStringAsFixed(2)).toString() +
             "  d1=" +
-            d1.toString());
+            distance1.toString());
   }
 }
 
