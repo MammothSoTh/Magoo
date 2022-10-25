@@ -2,6 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:magoo101/navigation.dart';
 
+class Goto extends ChangeNotifier {
+  late bool gotobedroom = false, gotobathroom = false, gotolivingroom = false;
+
+  bool wherebedroom() {
+    this.gotobedroom = true;
+    notifyListeners();
+    return gotobedroom;
+  }
+
+  bool wherebathroom() {
+    this.gotobathroom = true;
+    notifyListeners();
+    return gotobathroom;
+  }
+
+  bool wherelivingroom() {
+    this.gotolivingroom = true;
+    notifyListeners();
+    return gotolivingroom;
+  }
+}
+
 class MagooNavigationStart extends StatefulWidget {
   final String destination;
   const MagooNavigationStart({super.key, required this.destination});
@@ -14,6 +36,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
   String navigationStatus = 'Initializing...';
   List<double> destinationLocation = [];
   List<double> userLocation = [];
+  Goto goto = new Goto();
   bool gobedroom = false;
   bool gobathroom = false;
   bool golivingroom = false;
@@ -42,7 +65,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
                         destination: destinationLocation,
                         assign: userLocation,
                         destinationName: widget.destination,
-                        gobedroom: gobedroom = true,
+                        gobedroom: goto.wherebathroom(),
                       )))
           : widget.destination.toString() == "ห้องนอน".toString()
               ? Navigator.pushReplacement(
@@ -52,7 +75,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
                             destination: destinationLocation,
                             assign: userLocation,
                             destinationName: widget.destination,
-                            gobedroom: gobedroom,
+                            gobedroom: goto.wherebedroom(),
                           )))
               : widget.destination.toString() == "ห้องนั่งเล่น".toString()
                   ? Navigator.pushReplacement(
@@ -62,7 +85,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
                                 destination: destinationLocation,
                                 assign: userLocation,
                                 destinationName: widget.destination,
-                                gobedroom: gobedroom,
+                                gobedroom: goto.wherelivingroom(),
                               )))
                   : {
                       Navigator.pushReplacement(

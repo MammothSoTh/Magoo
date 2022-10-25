@@ -111,7 +111,7 @@ class MagooNavigationFailState extends State<MagooNavigationFail> {
           height: double.infinity,
           minWidth: 1000.0,
           onPressed: () {
-            Future.delayed(Duration(milliseconds: 300), () {
+            Future.delayed(Duration(milliseconds: 200), () {
               Navigator.push(
                   context,
                   MaterialPageRoute(

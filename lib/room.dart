@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:magoo101/navigation_start.dart';
 import 'package:magoo101/widgets.dart';
 
 import 'cal.dart';
@@ -35,6 +36,7 @@ class DiscoveryPage extends StatefulWidget {
 class _DiscoveryPage extends State<DiscoveryPage> {
   StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
   Distancing distancing = new Distancing();
+  Goto goto = new Goto();
   List<BluetoothDiscoveryResult> results =
       List<BluetoothDiscoveryResult>.empty(growable: true);
   bool isDiscovering = false;
@@ -150,16 +152,20 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               ),
               // Text(distancing.positional().toString())
               if (distancing.positional().toString() != "null")
-                Text(
-                  // '\n'
-                  //'Your Position is ' +
-                  distancing.positional().toString(),
-                  // results.map((element) {
-                  //   return element.rssi;
-                  // }
-                  // ).join("/"),
-                  style: TextStyle(color: Colors.white70),
-                )
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        // '\n'
+                        //'Your Position is ' +
+                        distancing.positional().toString(),
+                        // results.map((element) {
+                        //   return element.rssi;
+                        // }
+                        // ).join("/"),
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ])
               else
                 Text(
                   '\n'

@@ -20,7 +20,6 @@ num? distance(int rssi) {
 
 class Distancing extends ChangeNotifier {
   late int? rssi1 = 99999, rssi2 = 99999, rssi3 = 99999, rssi4 = 99999;
-  int a = 2;
 
   Distancing(
       // [this.distance1 = 9999999,
@@ -135,7 +134,7 @@ class Distancing extends ChangeNotifier {
         "," +
         (csum.toStringAsFixed(2)).toString());
 
-    if (distance1 != 0 && distance2 != 0)
+    if (distance1 != 0 && distance2 != 0 && distance3 != 0 && distance4 != 0)
       return (
               // matrix11Tit3.toString()
               "your position is" +
