@@ -65,7 +65,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
                         destination: destinationLocation,
                         assign: userLocation,
                         destinationName: widget.destination,
-                        gobedroom: goto.wherebathroom(),
+                        gowhatroom: goto.wherebathroom(),
                       )))
           : widget.destination.toString() == "ห้องนอน".toString()
               ? Navigator.pushReplacement(
@@ -75,7 +75,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
                             destination: destinationLocation,
                             assign: userLocation,
                             destinationName: widget.destination,
-                            gobedroom: goto.wherebedroom(),
+                            gowhatroom: goto.wherebedroom(),
                           )))
               : widget.destination.toString() == "ห้องนั่งเล่น".toString()
                   ? Navigator.pushReplacement(
@@ -85,7 +85,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
                                 destination: destinationLocation,
                                 assign: userLocation,
                                 destinationName: widget.destination,
-                                gobedroom: goto.wherelivingroom(),
+                                gowhatroom: goto.wherelivingroom(),
                               )))
                   : {
                       Navigator.pushReplacement(
@@ -95,7 +95,7 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
                                     destination: destinationLocation,
                                     assign: userLocation,
                                     destinationName: widget.destination,
-                                    gobedroom: gobedroom,
+                                    gowhatroom: gobedroom,
                                   ))),
                       flutterTts.speak(
                           "No Position in database please tap and try again"

@@ -7,14 +7,14 @@ class MagooNavigation extends StatefulWidget {
   final List<double> destination;
   final List<double> assign;
   final String destinationName;
-  final bool gobedroom;
+  final bool gowhatroom;
 
   const MagooNavigation(
       {super.key,
       required this.destination,
       required this.assign,
       this.destinationName = "destination",
-      required this.gobedroom});
+      required this.gowhatroom});
 
   @override
   State<MagooNavigation> createState() => MagooNavigationState();
@@ -59,14 +59,14 @@ class MagooNavigationFail extends StatefulWidget {
   final List<double> destination;
   final List<double> assign;
   final String destinationName;
-  final bool gobedroom;
+  final bool gowhatroom;
 
   const MagooNavigationFail(
       {super.key,
       required this.destination,
       required this.assign,
       this.destinationName = "destination",
-      required this.gobedroom});
+      required this.gowhatroom});
 
   @override
   State<MagooNavigationFail> createState() => MagooNavigationFailState();
