@@ -27,7 +27,7 @@ class Distancing extends ChangeNotifier {
       // this.distance2 = 9999999,
       // this.distance3 = 9999999,
       // this.distance4 = 9999999]
-      ) {}[]
+      ) {}
 
   // Method.
   num? setdistance1(int rssi1) {
