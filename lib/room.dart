@@ -39,6 +39,15 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   Distancing distancing = new Distancing();
   final FlutterTts flutterTts = FlutterTts();
 
+  Widget speak() {
+    Future.delayed(const Duration(milliseconds: 30000));
+    flutterTts.setLanguage("en-US");
+    //flutterTts.setLanguage("th-TH");
+    flutterTts.setPitch(1);
+    flutterTts.speak("finding your position");
+    return Container(width: 0, height: 0);
+  }
+
   Goto goto = new Goto();
   List<BluetoothDiscoveryResult> results =
       List<BluetoothDiscoveryResult>.empty(growable: true);
@@ -100,12 +109,6 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   }
 
   @override
-  void initState2() {
-    super.initState();
-    _initNavigation2();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -161,34 +164,51 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                 color: Colors.white,
               ),
               // Text(distancing.positional().toString())
-              if (distancing.positional().toString() != "null")
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        // '\n'
-                        //'Your Position is ' +
-                        distancing.positional().toString(),
-                        // results.map((element) {
-                        //   return element.rssi;
-                        // }
-                        // ).join("/"),
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ])
-              else
-                Text(
-                  '\n'
-                  "Finding your position",
+              distancing.positional().toString() != "null"
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                          Text(
+                            // '\n'
+                            //'Your Position is ' +
+                            distancing.positional().toString(),
+                            // results.map((element) {
+                            //   return element.rssi;
+                            // }
+                            // ).join("/"),
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        ])
+                  : speak(),
+              // sleepy()
 
-                  // results.map((element) {
-                  //   return element.rssi;
-                  // }
-                  // ).join("/"),
-                  style: TextStyle(color: Colors.white70),
-                )
+              // if (distancing.positional().toString() != "null")
+              //   Column(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: <Widget>[
+              //         Text(
+              //           // '\n'
+              //           //'Your Position is ' +
+              //           distancing.positional().toString(),
+              //           // results.map((element) {
+              //           //   return element.rssi;
+              //           // }
+              //           // ).join("/"),
+              //           style: TextStyle(color: Colors.white70),
+              //         ),
+              //       ])
+              // else
+              //   flutterTts.speak("Finding your position")
+              // Text(
+              //   '\n'
+              //   "Finding your position",
 
-              // flutterTts.speak("Finding your position"))
+              // results.map((element) {
+              //   return element.rssi;
+              // }
+              // ).join("/"),
+              //   style: TextStyle(color: Colors.white70),
+              // )
 
               // position.toString() !== null
               //     ? Text(
@@ -199,16 +219,5 @@ class _DiscoveryPage extends State<DiscoveryPage> {
             ]),
       ),
     );
-  }
-
-  void _initNavigation2() {
-    Future.delayed(const Duration(milliseconds: 1800), () {
-      distancing.positional() != "Null".toString()
-          ? flutterTts.speak("No Position in database please tap and try again")
-          //distancing.positional().X ==
-
-          : flutterTts.speak(
-              "No Position in database please tap and try again".toString());
-    });
   }
 }
