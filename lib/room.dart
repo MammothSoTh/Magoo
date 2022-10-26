@@ -7,6 +7,7 @@ import 'package:magoo101/navigation_start.dart';
 import 'package:magoo101/widgets.dart';
 
 import 'cal.dart';
+import 'speech.dart';
 
 //void main() => runApp(new MyApp());
 
@@ -39,13 +40,78 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   Distancing distancing = new Distancing();
   final FlutterTts flutterTts = FlutterTts();
 
-  Widget speak() {
-    Future.delayed(const Duration(milliseconds: 30000));
+  speak() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setLanguage("th-TH");
+    await flutterTts.setPitch(1);
+    await flutterTts.speak("tab and tell where you want to go");
+  }
+
+  Widget finding() {
+    Future.delayed(const Duration(milliseconds: 1800));
     flutterTts.setLanguage("en-US");
     //flutterTts.setLanguage("th-TH");
     flutterTts.setPitch(1);
     flutterTts.speak("finding your position");
     return Container(width: 0, height: 0);
+  }
+
+  Widget gostraight() {
+    Future.delayed(const Duration(milliseconds: 1800));
+    flutterTts.setLanguage("en-US");
+    //flutterTts.setLanguage("th-TH");
+    flutterTts.setPitch(1);
+    flutterTts.speak("go straight");
+    return Container(width: 0, height: 0);
+  }
+
+  Widget gobackward() {
+    Future.delayed(const Duration(milliseconds: 1800));
+    flutterTts.setLanguage("en-US");
+    //flutterTts.setLanguage("th-TH");
+    flutterTts.setPitch(1);
+    flutterTts.speak("go backward");
+    return Container(width: 0, height: 0);
+  }
+
+  Widget turnleft() {
+    Future.delayed(const Duration(milliseconds: 1800));
+    flutterTts.setLanguage("en-US");
+    //flutterTts.setLanguage("th-TH");
+    flutterTts.setPitch(1);
+    flutterTts.speak("turnleft");
+    return Container(width: 0, height: 0);
+  }
+
+  Widget turnright() {
+    Future.delayed(const Duration(milliseconds: 1800));
+    flutterTts.setLanguage("en-US");
+    //flutterTts.setLanguage("th-TH");
+    flutterTts.setPitch(1);
+    flutterTts.speak("turnrigt");
+    return Container(width: 0, height: 0);
+  }
+
+  Widget atdestination() {
+    Future.delayed(const Duration(milliseconds: 1800));
+    flutterTts.setLanguage("en-US");
+    //flutterTts.setLanguage("th-TH");
+    flutterTts.setPitch(1);
+    flutterTts.speak("you are at your destination ");
+    return Column(
+      children: [
+        MaterialButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MagooSpeechRecognitionPage()));
+            Future.delayed(const Duration(milliseconds: 1800));
+            speak();
+          },
+        )
+      ],
+    );
   }
 
   Goto goto = new Goto();
@@ -94,6 +160,34 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         isDiscovering = false;
         // sleep(Duration(milliseconds: 50));
       });
+      // distancing.positional().toString() != "null"
+      //     ? Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: <Widget>[
+      //             Text(
+      //               distancing.positional().toString(),
+      //               style: TextStyle(color: Colors.white70),
+      //             ),
+      //             Goto().gotobedroom == true
+      //                 ? distancing.x as int > 6 + -1 //bedroom x = 6
+      //                     ? gobackward()
+      //                     : distancing.x as int < 6 + -1
+      //                         ? gostraight()
+      //                         : distancing.x as int == 6 + -1
+      //                             ? distancing.y as int > 7 + -1 //bedroom y = 7
+      //                                 ? turnleft()
+      //                                 : distancing.y as int < 7 + -1
+      //                                     ? turnright()
+      //                                     : distancing.y as int == 7 + -1
+      //                                         ? atdestination()
+      //                                         : finding()
+      //                             : finding()
+      //                 : finding()
+      //             // : Goto().gotolivingroom == true
+      //             //  ?finding()
+      //             // : Goto().gotobathroom == true
+      //           ])
+      //     : finding();
       _restartDiscovery();
     });
   }
@@ -164,23 +258,23 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                 color: Colors.white,
               ),
               // Text(distancing.positional().toString())
-              distancing.positional().toString() != "null"
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                          Text(
-                            // '\n'
-                            //'Your Position is ' +
-                            distancing.positional().toString(),
-                            // results.map((element) {
-                            //   return element.rssi;
-                            // }
-                            // ).join("/"),
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        ])
-                  : speak(),
-              // sleepy()
+              // distancing.positional().toString() != "null"
+              //     ? Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: <Widget>[
+              //             Text(
+              //               distancing.positional().toString(),
+              //               style: TextStyle(color: Colors.white70),
+              //             ),
+              //             Goto().gotobedroom == true
+              //                 ? finding()
+              //                 : Goto().gotolivingroom == true
+              //                     ? finding()
+              //                     : Goto().gotobathroom == true
+              //                         ? finding()
+              //                         : finding()
+              //           ])
+              //     : finding(),
 
               // if (distancing.positional().toString() != "null")
               //   Column(
