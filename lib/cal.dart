@@ -20,7 +20,7 @@ num? distance(int rssi) {
 
 class Distancing extends ChangeNotifier {
   late int? rssi1 = 0, rssi2 = 0, rssi3 = 0, rssi4 = 0;
-  String x = 0.toString(), y = 0.toString(), z = 0.toString();
+  double x = 0, y = 0, z = 0;
 
   Distancing(
       // [this.distance1 = 9999999,
@@ -67,18 +67,16 @@ class Distancing extends ChangeNotifier {
     return distance4;
   }
 
-  String setallzero() {
+  void setallzero() {
     this.rssi1 = 0;
     this.rssi2 = 0;
     this.rssi3 = 0;
     this.rssi4 = 0;
-    this.x = 0.toString();
-    this.y = 0.toString();
-    this.z = 0.toString();
+    this.x = 0;
+    this.y = 0;
+    this.z = 0;
     //var distance4 = distance(rssi4);
     notifyListeners();
-
-    return "Don't recognize this divice";
   }
 
   num? distance(int rssi) {
@@ -149,9 +147,9 @@ class Distancing extends ChangeNotifier {
         "," +
         (csum.toStringAsFixed(2)).toString());
 
-    this.x = asum.toStringAsFixed(2);
-    this.y = bsum.toStringAsFixed(2);
-    this.z = csum.toStringAsFixed(2);
+    this.x = asum;
+    this.y = bsum;
+    this.z = csum;
     notifyListeners();
 
     if (rssi1 != 0 && rssi2 != 0 && rssi3 != 0 && rssi4 != 0)

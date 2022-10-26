@@ -88,7 +88,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     flutterTts.setLanguage("en-US");
     //flutterTts.setLanguage("th-TH");
     flutterTts.setPitch(1);
-    flutterTts.speak("turnrigt");
+    flutterTts.speak("turnright");
     return Container(width: 0, height: 0);
   }
 
@@ -135,7 +135,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   void initState() {
     super.initState();
     isDiscovering = widget.start;
-    flutterTts.speak("finding your position");
+    //flutterTts.speak("finding your position");
     if (isDiscovering) {
       _startDiscovery();
     }
@@ -143,7 +143,37 @@ class _DiscoveryPage extends State<DiscoveryPage> {
 
   void _restartDiscovery() {
     setState(() {
+      distancing.positional().toString() != "null"
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                  // Text(
+                  //   distancing.positional().toString(),
+                  //   style: TextStyle(color: Colors.white70),
+                  // ),
+                  Goto().gotobedroom == true
+                      ? distancing.x > 6 + -1 //bedroom x = 6
+                          ? gobackward()
+                          : distancing.x < 6 + -1
+                              ? gostraight()
+                              : distancing.x == 6 + -1
+                                  ? distancing.y > 7 + -1 //bedroom y = 7
+                                      ? turnleft()
+                                      : distancing.y < 7 + -1
+                                          ? turnright()
+                                          : distancing.y == 7 + -1
+                                              ? atdestination()
+                                              : gobackward()
+                                  : turnright()
+                      : turnleft()
+                  // : Goto().gotolivingroom == true
+                  //  ?finding()
+                  // : Goto().gotobathroom == true
+                ])
+          : finding();
       results.clear();
+
+      distancing.setallzero();
       isDiscovering = true;
     });
     print(results.toString());
@@ -152,7 +182,34 @@ class _DiscoveryPage extends State<DiscoveryPage> {
 
   Future<void> _startDiscovery() async {
     await FlutterBluetoothSerial.instance.cancelDiscovery();
-
+    // await distancing.positional().toString() != "null"
+    //     ? Column(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: <Widget>[
+    //             // Text(
+    //             //   distancing.positional().toString(),
+    //             //   style: TextStyle(color: Colors.white70),
+    //             // ),
+    //             Goto().gotobedroom == true
+    //                 ? distancing.x > 6 + -1 //bedroom x = 6
+    //                     ? gobackward()
+    //                     : distancing.x as int < 6 + -1
+    //                         ? gostraight()
+    //                         : distancing.x as int == 6 + -1
+    //                             ? distancing.y as int > 7 + -1 //bedroom y = 7
+    //                                 ? turnleft()
+    //                                 : distancing.y as int < 7 + -1
+    //                                     ? turnright()
+    //                                     : distancing.y as int == 7 + -1
+    //                                         ? atdestination()
+    //                                         : allzero()
+    //                             : allzero()
+    //                 : allzero()
+    //             // : Goto().gotolivingroom == true
+    //             //  ?finding()
+    //             // : Goto().gotobathroom == true
+    //           ])
+    //     : finding();
     _streamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
       setState(() {
@@ -170,34 +227,6 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         isDiscovering = false;
         // sleep(Duration(milliseconds: 50));
       });
-      distancing.positional().toString() != "null"
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                  Text(
-                    distancing.positional().toString(),
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  Goto().gotobedroom == true
-                      ? distancing.x as int > 6 + -1 //bedroom x = 6
-                          ? gobackward()
-                          : distancing.x as int < 6 + -1
-                              ? gostraight()
-                              : distancing.x as int == 6 + -1
-                                  ? distancing.y as int > 7 + -1 //bedroom y = 7
-                                      ? turnleft()
-                                      : distancing.y as int < 7 + -1
-                                          ? turnright()
-                                          : distancing.y as int == 7 + -1
-                                              ? atdestination()
-                                              : allzero()
-                                  : allzero()
-                      : allzero()
-                  // : Goto().gotolivingroom == true
-                  //  ?finding()
-                  // : Goto().gotobathroom == true
-                ])
-          : finding();
       _restartDiscovery();
     });
   }

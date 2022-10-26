@@ -1,26 +1,27 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:magoo101/navigation.dart';
 
 class Goto extends ChangeNotifier {
-  late bool gotobedroom = false, gotobathroom = false, gotolivingroom = false;
+  bool gotobedroom = false, gotobathroom = false, gotolivingroom = false;
 
-  bool wherebedroom() {
+  void wherebedroom() {
     this.gotobedroom = true;
     notifyListeners();
-    return gotobedroom;
+    //return gotobedroom;
   }
 
-  bool wherebathroom() {
+  void wherebathroom() {
     this.gotobathroom = true;
     notifyListeners();
-    return gotobathroom;
+    // return gotobathroom;
   }
 
-  bool wherelivingroom() {
+  void wherelivingroom() {
     this.gotolivingroom = true;
     notifyListeners();
-    return gotolivingroom;
+    // return gotolivingroom;
   }
 }
 
@@ -58,35 +59,44 @@ class MagooNavigationStartState extends State<MagooNavigationStart> {
   void _initNavigation() {
     Future.delayed(const Duration(milliseconds: 1800), () {
       widget.destination.toString() == "ห้องน้ำ".toString()
-          ? Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MagooNavigation(
-                        destination: destinationLocation,
-                        assign: userLocation,
-                        destinationName: widget.destination,
-                        gowhatroom: goto.wherebathroom(),
-                      )))
-          : widget.destination.toString() == "ห้องนอน".toString()
-              ? Navigator.pushReplacement(
+          ? {
+              goto.wherebathroom(),
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => MagooNavigation(
                             destination: destinationLocation,
                             assign: userLocation,
                             destinationName: widget.destination,
-                            gowhatroom: goto.wherebedroom(),
-                          )))
-              : widget.destination.toString() == "ห้องนั่งเล่น".toString()
-                  ? Navigator.pushReplacement(
+                            gowhatroom: goto.gotobathroom,
+                          ))),
+            }
+          : widget.destination.toString() == "ห้องนอน".toString()
+              ? {
+                  goto.wherebedroom,
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => MagooNavigation(
                                 destination: destinationLocation,
                                 assign: userLocation,
                                 destinationName: widget.destination,
-                                gowhatroom: goto.wherelivingroom(),
+                                gowhatroom: goto.gotobedroom,
                               )))
+                }
+              : widget.destination.toString() == "ห้องนั่งเล่น".toString()
+                  ? {
+                      goto.wherelivingroom(),
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MagooNavigation(
+                                    destination: destinationLocation,
+                                    assign: userLocation,
+                                    destinationName: widget.destination,
+                                    gowhatroom: goto.gotolivingroom,
+                                  ))),
+                    }
                   : {
                       Navigator.pushReplacement(
                           context,

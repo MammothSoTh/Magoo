@@ -35,7 +35,7 @@ class BluetoothDeviceListEntry extends ListTile {
                       "distance from bt 2 = ",
                       style: TextStyle(color: Colors.white70),
                     )
-                  : device.address.toString() == "10:76:36:8D:63:0A".toString()
+                  : device.address.toString() == "E3:C6:00:F3:13:48".toString()
                       ? Text(
                           "distance from bt 3 = ",
                           style: TextStyle(color: Colors.white70),
@@ -77,7 +77,7 @@ class BluetoothDeviceListEntry extends ListTile {
                           ),
                         )
                       : device.address.toString() ==
-                              "10:76:36:8D:63:0A".toString()
+                              "E3:C6:00:F3:13:48".toString()
                           ? Container(
                               child: Text(
                                 distancing.setdistance3(rssi!).toString(),
