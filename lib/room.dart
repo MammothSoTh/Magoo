@@ -92,6 +92,16 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     return Container(width: 0, height: 0);
   }
 
+  Widget allzero() {
+    Future.delayed(const Duration(milliseconds: 1800));
+    flutterTts.setLanguage("en-US");
+    //flutterTts.setLanguage("th-TH");
+    flutterTts.setPitch(1);
+    flutterTts.speak("finding your position");
+    distancing.setallzero();
+    return Container(width: 0, height: 0);
+  }
+
   Widget atdestination() {
     Future.delayed(const Duration(milliseconds: 1800));
     flutterTts.setLanguage("en-US");
@@ -125,6 +135,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   void initState() {
     super.initState();
     isDiscovering = widget.start;
+    flutterTts.speak("finding your position");
     if (isDiscovering) {
       _startDiscovery();
     }
@@ -136,7 +147,6 @@ class _DiscoveryPage extends State<DiscoveryPage> {
       isDiscovering = true;
     });
     print(results.toString());
-    distancing.setallzero();
     _startDiscovery();
   }
 
@@ -160,34 +170,34 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         isDiscovering = false;
         // sleep(Duration(milliseconds: 50));
       });
-      // distancing.positional().toString() != "null"
-      //     ? Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         children: <Widget>[
-      //             Text(
-      //               distancing.positional().toString(),
-      //               style: TextStyle(color: Colors.white70),
-      //             ),
-      //             Goto().gotobedroom == true
-      //                 ? distancing.x as int > 6 + -1 //bedroom x = 6
-      //                     ? gobackward()
-      //                     : distancing.x as int < 6 + -1
-      //                         ? gostraight()
-      //                         : distancing.x as int == 6 + -1
-      //                             ? distancing.y as int > 7 + -1 //bedroom y = 7
-      //                                 ? turnleft()
-      //                                 : distancing.y as int < 7 + -1
-      //                                     ? turnright()
-      //                                     : distancing.y as int == 7 + -1
-      //                                         ? atdestination()
-      //                                         : finding()
-      //                             : finding()
-      //                 : finding()
-      //             // : Goto().gotolivingroom == true
-      //             //  ?finding()
-      //             // : Goto().gotobathroom == true
-      //           ])
-      //     : finding();
+      distancing.positional().toString() != "null"
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                  Text(
+                    distancing.positional().toString(),
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  Goto().gotobedroom == true
+                      ? distancing.x as int > 6 + -1 //bedroom x = 6
+                          ? gobackward()
+                          : distancing.x as int < 6 + -1
+                              ? gostraight()
+                              : distancing.x as int == 6 + -1
+                                  ? distancing.y as int > 7 + -1 //bedroom y = 7
+                                      ? turnleft()
+                                      : distancing.y as int < 7 + -1
+                                          ? turnright()
+                                          : distancing.y as int == 7 + -1
+                                              ? atdestination()
+                                              : allzero()
+                                  : allzero()
+                      : allzero()
+                  // : Goto().gotolivingroom == true
+                  //  ?finding()
+                  // : Goto().gotobathroom == true
+                ])
+          : finding();
       _restartDiscovery();
     });
   }
@@ -276,37 +286,37 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               //           ])
               //     : finding(),
 
-              // if (distancing.positional().toString() != "null")
-              //   Column(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: <Widget>[
-              //         Text(
-              //           // '\n'
-              //           //'Your Position is ' +
-              //           distancing.positional().toString(),
-              //           // results.map((element) {
-              //           //   return element.rssi;
-              //           // }
-              //           // ).join("/"),
-              //           style: TextStyle(color: Colors.white70),
-              //         ),
-              //       ])
-              // else
-              //   flutterTts.speak("Finding your position")
-              // Text(
-              //   '\n'
-              //   "Finding your position",
+              if (distancing.positional().toString() != "null")
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        // '\n'
+                        //'Your Position is ' +
+                        distancing.positional().toString(),
+                        // results.map((element) {
+                        //   return element.rssi;
+                        // }
+                        // ).join("/"),
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ])
+              else
+                // flutterTts.speak("Finding your position")
+                Text(
+                  //'\n'
+                  "Finding your position",
+                  //
+                  // results.map((element) {
+                  //   return element.rssi;
+                  // }
+                  // ).join("/"),
+                  style: TextStyle(color: Colors.white70),
+                ),
 
-              // results.map((element) {
-              //   return element.rssi;
-              // }
-              // ).join("/"),
-              //   style: TextStyle(color: Colors.white70),
-              // )
-
-              // position.toString() !== null
+              // distancing.positional().toString() != null
               //     ? Text(
-              //         "Your Position = "+ position.tostring,
+              //         "Your Position = " + distancing.positional().toString(),
               //         style: TextStyle(color: Colors.white70),
               //       )
               //     : Container(width: 0, height: 0),

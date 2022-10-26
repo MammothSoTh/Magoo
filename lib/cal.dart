@@ -20,7 +20,7 @@ num? distance(int rssi) {
 
 class Distancing extends ChangeNotifier {
   late int? rssi1 = 0, rssi2 = 0, rssi3 = 0, rssi4 = 0;
-  String x = 0 as String, y = 0 as String, z = 0 as String;
+  String x = 0.toString(), y = 0.toString(), z = 0.toString();
 
   Distancing(
       // [this.distance1 = 9999999,
@@ -72,6 +72,9 @@ class Distancing extends ChangeNotifier {
     this.rssi2 = 0;
     this.rssi3 = 0;
     this.rssi4 = 0;
+    this.x = 0.toString();
+    this.y = 0.toString();
+    this.z = 0.toString();
     //var distance4 = distance(rssi4);
     notifyListeners();
 
@@ -145,6 +148,7 @@ class Distancing extends ChangeNotifier {
         (bsum.toStringAsFixed(2)) +
         "," +
         (csum.toStringAsFixed(2)).toString());
+
     this.x = asum.toStringAsFixed(2);
     this.y = bsum.toStringAsFixed(2);
     this.z = csum.toStringAsFixed(2);
