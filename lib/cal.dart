@@ -6,20 +6,20 @@ import 'package:ml_linalg/linalg.dart';
 String powerrssi(int s) {
   return "_s" + s.toString();
 }
-
-num? distance(int rssi) {
-  double n;
-  int A;
-  n = 2.4;
-  A = -79;
-  if (rssi == null)
-    return null;
-  else
-    return pow(10, (A - rssi) / (10 * n));
-}
+//
+// num? distance(int rssi) {
+//   double n;
+//   int A;
+//   n = 2.4;
+//   A = -79;
+//   if (rssi == null)
+//     return null;
+//   else
+//     return pow(10, (A - rssi) / (10 * n));
+// }
 
 class Distancing extends ChangeNotifier {
-  late int? rssi1 = 0, rssi2 = 0, rssi3 = 0, rssi4 = 0;
+  late double rssi1 = 0, rssi2 = 0, rssi3 = 0, rssi4 = 0;
   double x = 0, y = 0, z = 0;
 
   Distancing(
@@ -30,7 +30,7 @@ class Distancing extends ChangeNotifier {
       ) {}
 
   // Method.
-  num? setdistance1(int rssi1) {
+  num? setdistance1(double rssi1) {
     this.rssi1 = rssi1;
     var distance1 = distance(rssi1);
     notifyListeners();
@@ -39,7 +39,7 @@ class Distancing extends ChangeNotifier {
     return distance1;
   }
 
-  num? setdistance2(int rssi2) {
+  num? setdistance2(double rssi2) {
     //this.distance2 = distance(rssi2) as int?;
     this.rssi2 = rssi2;
     var distance2 = distance(rssi2);
@@ -49,7 +49,7 @@ class Distancing extends ChangeNotifier {
     return distance2;
   }
 
-  num? setdistance3(int rssi3) {
+  num? setdistance3(double rssi3) {
     this.rssi3 = rssi3;
     var distance3 = distance(rssi3);
     notifyListeners();
@@ -58,7 +58,7 @@ class Distancing extends ChangeNotifier {
     return distance3;
   }
 
-  num? setdistance4(int rssi4) {
+  num? setdistance4(double rssi4) {
     this.rssi4 = rssi4;
     var distance4 = distance(rssi4);
     notifyListeners();
@@ -79,11 +79,11 @@ class Distancing extends ChangeNotifier {
     notifyListeners();
   }
 
-  num? distance(int rssi) {
+  num? distance(double rssi) {
     double n;
     int A;
-    n = 2.4;
-    A = -79;
+    n = 2.4; //2.4 (2-4)
+    A = -50;
     if (rssi == null)
       return null;
     else
@@ -91,23 +91,23 @@ class Distancing extends ChangeNotifier {
   }
 
   String? positional() {
-    int x1 = 1,
-        y1 = 63,
-        z1 = 13,
-        x2 = 15,
-        y2 = 11,
-        z2 = 14,
-        x3 = 19,
-        y3 = 12,
-        z3 = 15,
-        x4 = 13,
-        y4 = 9,
-        z4 = 15;
-    var distance1 = distance(rssi1!);
-    var distance2 = distance(rssi2!);
-    print("rssi2 =" + distance1.toString());
-    var distance3 = distance(rssi3!);
-    var distance4 = distance(rssi4!);
+    double x1 = 0,
+        y1 = 0,
+        z1 = 7,
+        x2 = -3.8,
+        y2 = 0,
+        z2 = 0,
+        x3 = 0,
+        y3 = 7.6,
+        z3 = 7,
+        x4 = -3.8,
+        y4 = 7.6,
+        z4 = 7;
+    var distance1 = distance(rssi1);
+    var distance2 = distance(rssi2);
+    // print("rssi2 =" + distance1.toString());
+    var distance3 = distance(rssi3);
+    var distance4 = distance(rssi4);
     //device1 = (x1,y1,z1)
     // var x, y, z;
     final matrix1 = Matrix.fromList([
@@ -117,10 +117,10 @@ class Distancing extends ChangeNotifier {
       [1, x4 * (-2), y4 * (-2), z4 * (-2)],
     ]);
     final matrix3 = Matrix.fromList([
-      [sqrt(distance1!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
-      [sqrt(distance2!) - sqrt(x2) - sqrt(y2) - sqrt(z2)],
-      [sqrt(distance3!) - sqrt(x3) - sqrt(y3) - sqrt(z3)],
-      [sqrt(distance4!) - sqrt(x1) - sqrt(y1) - sqrt(z1)],
+      [pow(distance1!, 2) - pow(x1, 2) - pow(y1, 2) - pow(z1, 2).toDouble()],
+      [pow(distance2!, 2) - pow(x2, 2) - pow(y2, 2) - pow(z2, 2).toDouble()],
+      [pow(distance3!, 2) - pow(x3, 2) - pow(y3, 2) - pow(z3, 2).toDouble()],
+      [pow(distance4!, 2) - pow(x1, 2) - pow(y1, 2) - pow(z1, 2).toDouble()],
     ]);
     //x=((At*A)^-1)*At *B
     final matrix1T = matrix1.transpose(); //1transpose

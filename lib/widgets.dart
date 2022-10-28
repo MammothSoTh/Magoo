@@ -23,25 +23,25 @@ class BluetoothDeviceListEntry extends ListTile {
           //
           //title: Text(device.name ?? ""),
           //subtitle: Text(device.address.toString() + "\n"
-          title: device.address.toString() == "DC:72:23:B4:DE:AA".toString()
+          title: device.address.toString() == "20:16:09:18:51:34".toString()
               ? Container(
                   child: Text(
                     "distance from bt 1 = ",
                     style: TextStyle(color: Colors.white70),
                   ),
                 )
-              : device.address.toString() == "00:C3:F4:84:7C:A6".toString()
+              : device.address.toString() == "20:16:09:08:32:69".toString()
                   ? Text(
                       "distance from bt 2 = ",
                       style: TextStyle(color: Colors.white70),
                     )
-                  : device.address.toString() == "E3:C6:00:F3:13:48".toString()
+                  : device.address.toString() == "20:16:09:18:67:57".toString()
                       ? Text(
                           "distance from bt 3 = ",
                           style: TextStyle(color: Colors.white70),
                         )
                       : device.address.toString() ==
-                              "73:22:66:50:7A:E4".toString()
+                              "E1:43:13:11:54:45".toString()
                           ? Text(
                               "distance from bt 4 = ",
                               style: TextStyle(color: Colors.white70),
@@ -56,41 +56,50 @@ class BluetoothDeviceListEntry extends ListTile {
           trailing: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              device.address.toString() == "DC:72:23:B4:DE:AA".toString()
+              device.address.toString() == "20:16:09:18:51:34".toString()
                   ? Container(
                       child: Text(
+                        // rssi.toString(),
                         //"dh",
                         // distancing.distance1.toString() != null
-                        distancing.setdistance1(rssi!).toString(),
+                        distancing.setdistance1(rssi!.toDouble()).toString(),
                         // notiflylistenner(),
                         //: "no",
                         style: TextStyle(color: Colors.white70),
                       ),
                     )
-                  : device.address.toString() == "00:C3:F4:84:7C:A6".toString()
+                  : device.address.toString() == "20:16:09:08:32:69".toString()
                       ? Container(
                           child: Text(
-                            distancing.setdistance2(rssi!).toString(),
+                            // rssi.toString(),
+                            distancing
+                                .setdistance2(rssi!.toDouble())
+                                .toString(),
                             //positional().toString(),
                             //togetvalue2(rssi!).toString(), //AsFixed(2) + " m.",
                             style: TextStyle(color: Colors.white70),
                           ),
                         )
                       : device.address.toString() ==
-                              "E3:C6:00:F3:13:48".toString()
+                              "20:16:09:18:67:57".toString()
                           ? Container(
                               child: Text(
-                                distancing.setdistance3(rssi!).toString(),
+                                distancing
+                                    .setdistance3(rssi!.toDouble())
+                                    .toString(),
                                 //positional().toString(),
                                 //togetvalue2(rssi!).toString(), //AsFixed(2) + " m.",
                                 style: TextStyle(color: Colors.white70),
                               ),
                             )
                           : device.address.toString() ==
-                                  "73:22:66:50:7A:E4".toString()
+                                  "E1:43:13:11:54:45".toString()
                               ? Container(
                                   child: Text(
-                                    distancing.setdistance4(rssi!).toString(),
+                                    // rssi.toString(),
+                                    distancing
+                                        .setdistance4(rssi!.toDouble())
+                                        .toString(),
                                     //positional().toString(),
                                     //togetvalue2(rssi!).toString(), //AsFixed(2) + " m.",
                                     style: TextStyle(color: Colors.white70),

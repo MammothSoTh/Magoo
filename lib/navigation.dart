@@ -21,10 +21,10 @@ class MagooNavigation extends StatefulWidget {
 }
 
 class MagooNavigationState extends State<MagooNavigation> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
